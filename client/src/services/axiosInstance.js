@@ -10,7 +10,7 @@ const axiosInstance = axios.create({
 
 axiosInstance.interceptors.request.use(
   (config) => {
-    const token = Cookies.get('jwt-token');
+    const token = Cookies.get('fixit-jwt-token');
     if (token) {
       config.headers.Authorization = `Bearer ${token}`;
     }
@@ -28,7 +28,7 @@ axiosInstance.interceptors.response.use(
   (error) => {
     if (error.response && error.response.status === 401) {
       if (window.location.pathname !== '/login') {
-        Cookies.remove('jwt-token');
+        Cookies.remove('fixit-jwt-token');
         window.location.href = '/login';
       }
     }

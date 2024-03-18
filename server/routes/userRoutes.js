@@ -10,5 +10,11 @@ router.put(
   authMiddleware.verifyToken,
   controller.UpdateUser
 );
+router.get('/get-user-role',
+    authMiddleware.stripToken,
+    authMiddleware.verifyToken,
+    controller.GetUserRole
+)
+router.get('/providers', controller.GetProviders)
 
 module.exports = router;

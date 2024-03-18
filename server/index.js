@@ -3,6 +3,8 @@ const cors = require('cors');
 const mongoose = require('mongoose');
 require('dotenv').config();
 const UserRoutes = require("./routes/userRoutes");
+const ServiceRoutes = require("./routes/serviceRoutes")
+const RequestRoutes = require("./routes/requestRoutes")
 
 //Express Server Setup
 const app = express();
@@ -25,6 +27,8 @@ mongoose.connect(DB)
 
         // Routes
         app.use("/users", UserRoutes);
+        app.use("/services", ServiceRoutes)
+        app.use("/request", RequestRoutes)
 
         app.listen(port, () => {
             console.log(`Node/Express Server is Up......\nPort: localhost:${port}`);

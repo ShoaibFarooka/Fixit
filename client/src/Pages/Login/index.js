@@ -35,7 +35,7 @@ const handleSubmit = async (event) => {
     try {
         const response = await userService.loginUser(user);
         if (response.token) {
-            Cookies.set('activq-jwt-token', response.token, {
+            Cookies.set('fixit-jwt-token', response.token, {
                 secure: true,
                 sameSite: 'Lax'
             });
@@ -43,14 +43,14 @@ const handleSubmit = async (event) => {
             const from = location.state?.from?.pathname || '/';
             navigate(from);
         } else {
-            
+
             message.error('Login failed. Please try again.');
         }
     } catch (error) {
         if (error.response && error.response.data) {
             message.error(error.response.data);
         } else {
-            
+
             message.error('Invalid detils');
         }
     }
@@ -63,7 +63,7 @@ const handleSubmit = async (event) => {
 
     return (
         <div>
-            
+
             <div className="container shadow my-5">
                 <div className="row">
                     <div className="col-md-5 d-flex flex-column align-items-center text-white justify-content-center form">
