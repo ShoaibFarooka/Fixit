@@ -84,9 +84,19 @@ const UpdateUser = async (req, res) => {
     }
 };
 
+const GetProviders = async (req, res) => {
+    try {
+        const providers = await User.find({ role: 'service_provider' }).populate('services')
+        res.status(200).json({ status: 200, message: "Providers Fetched Successfully", providers: providers })
+    } catch (error) {
+        res.status(500).send("Internal Server Error");
+    }
+}
+
 module.exports = {
     Login,
     Register,
     GetUserRole,
     UpdateUser,
+    GetProviders,
 };

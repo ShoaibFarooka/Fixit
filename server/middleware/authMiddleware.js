@@ -21,7 +21,6 @@ const createToken = (payload) => {
   let token = jwt.sign(payload, APP_SECRET, {
     expiresIn: "1d",
   });
-
   return token;
 };
 
