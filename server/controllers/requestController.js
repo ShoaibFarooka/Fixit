@@ -1,5 +1,6 @@
 const Request = require('../models/requestModel')
 const mongoose = require("mongoose");
+const {request} = require("express");
 
 const CreateRequest = async (req, res) => {
     try {
@@ -14,12 +15,23 @@ const CreateRequest = async (req, res) => {
     }
 }
 
+const Requests = async (req, res) => {
+    try {
+        const userId = res.locals.payload.id;
+        const requests = await Request.find({ user: userId }).populate({ path: 'service' }).populate('user')
+        res.status(200).json({status: 200, message: "Requests Fetched Successfully", requests: requests})
+    } catch (error) {
+        res.status(500).send('Internal Server Error');
+        throw error;
+    }
+}
+
 const ProviderRequests = async (req, res) => {
     try {
         const userId = res.locals.payload.id;
-        console.log(userId)
         const requests = await Request.find().populate({ path: 'service', match: { user: userId } }).populate('user')
-        res.status(200).json({status: 200, message: "Requests Fetched Successfully", requests: requests})
+        let reqs = requests.filter(value => value.service !== null);
+        res.status(200).json({status: 200, message: "Requests Fetched Successfully", requests: reqs})
     } catch (error) {
         res.status(500).send('Internal Server Error');
         throw error;
@@ -40,6 +52,7 @@ const UpdateRequest = async (req, res) => {
 
 module.exports = {
     CreateRequest,
+    Requests,
     ProviderRequests,
     UpdateRequest
 }

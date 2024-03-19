@@ -16,6 +16,8 @@ const ProviderServices = ({services}) => {
 
     const handleSubmit = () => {
         dispatch(addService(service))
+        const initialState = { name: '', details: '' }
+        setService(initialState)
         setOpen(!open)
     }
 

@@ -7,6 +7,11 @@ router.post('/create',
     authMiddleware.verifyToken,
     controller.CreateRequest
 )
+router.get('/all',
+    authMiddleware.stripToken,
+    authMiddleware.verifyToken,
+    controller.Requests
+)
 router.get('/providers',
     authMiddleware.stripToken,
     authMiddleware.verifyToken,
