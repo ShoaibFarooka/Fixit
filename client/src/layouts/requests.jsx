@@ -22,7 +22,7 @@ const Requests = ({requests}) => {
                                     <span>{value.service.name}</span>
                                     <span className="">{moment(value.date).format("ll")}</span>
                                 </div>
-                                <h5 className="fw-bold">{value.user.name}</h5>
+                                <h5 className="fw-bold">{value.service.user.name}</h5>
                                 <span>{value.message}</span>
                                 <div className="d-flex justify-content-center mt-3">
                                     {value.status === 'Pending' ?

@@ -7,7 +7,8 @@ const CreateRequest = async (req, res) => {
         const userId = res.locals.payload.id;
         let data = req.body;
         data.user = userId
-        const request = await Request.create(data)
+        const result = await Request.create(data)
+        const request = await Request.findById(result._id).populate({ path: 'service', populate: { path: 'user' } }).populate('user')
         res.status(201).json({ status: 200, message: "Request Created Successfully", request: request })
     } catch (error){
         res.status(500).send('Internal Server Error');
@@ -18,7 +19,7 @@ const CreateRequest = async (req, res) => {
 const Requests = async (req, res) => {
     try {
         const userId = res.locals.payload.id;
-        const requests = await Request.find({ user: userId }).populate({ path: 'service' }).populate('user')
+        const requests = await Request.find({ user: userId }).populate({ path: 'service', populate: { path: 'user' } }).populate('user')
         res.status(200).json({status: 200, message: "Requests Fetched Successfully", requests: requests})
     } catch (error) {
         res.status(500).send('Internal Server Error');
