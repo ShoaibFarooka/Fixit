@@ -15,7 +15,7 @@ const Register = () => {
         email: "",
         username: "",
         password: "",
-        role: ""
+        role: "customer"
     });
     const [errors, setErrors] = useState({});
     const [passwordValidation, setPasswordValidation] = useState({
@@ -56,7 +56,7 @@ const Register = () => {
                 if (error.response && error.response.data) {
                     message.error(error.response.data);
                     console.error("Error response:", error.response.data);
-                } 
+                }
             }
         } else {
             setErrors(validationErrors);
@@ -194,7 +194,7 @@ const Register = () => {
                                             Role
                                         </label>
                                         <Select
-                                            defaultValue="customer"
+                                            value={user.role}
                                             style={{ width: '100%' }}
                                             onChange={handleRoleChange}
                                         >

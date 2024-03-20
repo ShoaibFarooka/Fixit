@@ -9,6 +9,14 @@ const requestService = {
             throw error;
         }
     },
+    allRequests: async () => {
+        try {
+            const response = await axiosInstance.get('/request/all')
+            return response.data
+        } catch (error) {
+            throw error;
+        }
+    },
     providersRequest: async () => {
         try {
             const response = await axiosInstance.get('/request/providers')

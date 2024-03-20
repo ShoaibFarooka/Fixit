@@ -25,6 +25,15 @@ export const addService = createAsyncThunk(CREATE_SERVICE, (service) => {
 const service = createSlice({
     name: SERVICE_REDUCER,
     initialState,
+    reducers: {
+        resetService: (state) => {
+            state.loading = false
+            state.noData = false
+            state.fetched = false
+            state.services = []
+            state.error = ''
+        }
+    },
     extraReducers: builder => {
         builder.addCase(fetchServices.pending, state => {
             state.loading = true
@@ -72,3 +81,4 @@ const service = createSlice({
 })
 
 export default service.reducer
+export const { resetService } = service.actions

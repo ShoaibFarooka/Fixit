@@ -1,6 +1,6 @@
 import React, {useState, useEffect, useRef} from 'react';
 import {useDispatch, useSelector} from "react-redux";
-import {fetchServices, fetchUserServices} from "../../data/reducers/service";
+import {fetchServices, fetchUserServices, resetService} from "../../data/reducers/service";
 import {isAuthenticated} from "../../utils/authUtils";
 import {useNavigate} from "react-router-dom";
 import {Tabs} from "antd";
@@ -11,8 +11,8 @@ import userService from "../../services/userService";
 import ProviderServices from "../../layouts/providerServices";
 import ProviderRequests from "../../layouts/providerRequests";
 import Cookies from "js-cookie";
-import {fetchProviders} from "../../data/reducers/user";
-import {getProviderRequests} from "../../data/reducers/request";
+import {fetchProviders, resetUsers} from "../../data/reducers/user";
+import {getAllRequests, getProviderRequests, resetRequest} from "../../data/reducers/request";
 
 const Home = () => {
 
@@ -37,6 +37,7 @@ const Home = () => {
             } else {
                 if (!response.fetched) {
                     dispatch(fetchProviders())
+                    dispatch(getAllRequests())
                 }
             }
         }
@@ -56,6 +57,9 @@ const Home = () => {
 
     const handleLogout = () => {
         Cookies.remove('fixit-jwt-token');
+        dispatch(resetService())
+        dispatch(resetRequest())
+        dispatch(resetUsers())
         navigate('/login');
     };
 
@@ -73,7 +77,7 @@ const Home = () => {
                         :
                         <Tabs defaultActiveKey="services" centered={true} tabBarStyle={{}}>
                             <TabPane tab="Service Providers" key="services"><Providers providers={userResponse.providers}/></TabPane>
-                            <TabPane tab="My Requests" key="requests"><Requests/></TabPane>
+                            <TabPane tab="My Requests" key="requests"><Requests requests={requestResponse.requests}/></TabPane>
                         </Tabs>
                     }
                 </div>

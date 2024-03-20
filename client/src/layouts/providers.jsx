@@ -16,6 +16,8 @@ const Providers = ({providers}) => {
 
     const handleSubmit = () => {
         dispatch(newRequest(requestData))
+        const initialState = { service: '', message: '', date: '' }
+        setRequestData(initialState)
         setOpen(!open)
     }
 
@@ -52,11 +54,11 @@ const Providers = ({providers}) => {
                 <center>
                     <div className="row w-50 my-4">
                         <h3 className="fw-bold">Request Service</h3>
-                        <textarea name="message" className="rounded-2 p-2 mt-2" style={{backgroundColor: "#f3f3f3"}}
+                        <textarea value={requestData.message} name="message" className="rounded-2 p-2 mt-2" style={{backgroundColor: "#f3f3f3"}}
                                   placeholder="Enter Message Here" aria-multiline={true}
                                   rows={3} onChange={(e) => handleChange(e)}/>
-                        <input name="date" className="rounded-2 p-2 mt-3 border-1"
-                               style={{backgroundColor: "#f3f3f3"}} type={"text"} placeholder="Date" onChange={(e) => handleChange(e)}/>
+                        <input value={requestData.date} name="date" className="rounded-2 p-2 mt-3 border-1"
+                               style={{backgroundColor: "#f3f3f3"}} type={"date"} placeholder="Date" onChange={(e) => handleChange(e)}/>
 
                     </div>
                     <button type="button" className="btn bg-black w-25 mx-1 mb-2 text-white" onClick={() => handleSubmit()}>Request</button>
